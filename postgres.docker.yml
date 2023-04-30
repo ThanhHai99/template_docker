@@ -1,0 +1,15 @@
+version: "3"
+services:
+ postgres:
+    image: "postgres:14.1-alpine"
+    restart: "always"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: root
+    volumes:
+      - "postgres_data:/data"
+
+volumes:
+ postgres_data:

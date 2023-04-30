@@ -1,0 +1,20 @@
+version: "3"
+services:
+  elasticsearch:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.11.0"
+    ports:
+      - "9200:9200"
+    volumes:
+      - "elasticsearch_data:/data"
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    networks:
+      - elasticsearch_net
+
+volumes:
+  elasticsearch_data:
+
+networks:
+  elasticsearch_net:
+    driver: bridge

@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  grpcui:
+    image: wongnai/grpcui
+    ports:
+      - "8080:8080"
+    
+volumes:
+  grpc_data:

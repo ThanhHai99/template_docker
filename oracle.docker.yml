@@ -1,0 +1,12 @@
+version: "3"
+services:
+  oracle:
+    image: "oraclelinux:8"
+    shm_size: 8g
+    ports:
+      - "1521:1521"
+    volumes:
+      - "oracle_data:/data"
+
+volumes:
+  oracle_data:

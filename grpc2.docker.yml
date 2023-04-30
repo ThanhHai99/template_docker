@@ -1,0 +1,14 @@
+version: "3.4"
+
+services:
+  prereqs:
+    image: grpcweb/prereqs
+  node-server:
+    image: dockernhatnguyen/node-server
+  envoy:
+    image: envoyproxy/envoy:v1.22-latest
+  commonjs-client:
+    image: grpcweb/commonjs-client
+
+volumes:
+  grpc_data:

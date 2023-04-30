@@ -1,13 +1,1 @@
-version: "3"
-services:
- sqlite:
-    image: "nouchka/sqlite3:latest"
-    stdin_open: true
-    tty: true
-    ports:
-      - "9000:9000"
-    volumes:
-      - "sqlite_data:/data"
 
-volumes:
- sqlite_data:

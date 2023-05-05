@@ -1,0 +1,63 @@
+version: "3.0"
+services:
+  elasticsearch:
+    container_name: elasticsearchhost
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.0
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    networks:
+      - elk
+    ports:
+      - 9200:9200
+  kibana:
+    container_name: kibanahost
+    image: docker.elastic.co/kibana/kibana:7.11.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearchhost:9200
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
+
+  filebeat:
+    container_name: filebeathost
+    image: docker.elastic.co/beats/filebeat:7.11.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearchhost:9200
+      - KIBANA_HOST=http://kibanahost:5601
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+    expose:
+      - 5601
+
+  logstash:
+    container_name: logstashhost
+    image: docker.elastic.co/logstash/logstash:7.11.0
+    command: logstash -f /config/
+    volumes:
+      - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z
+      - ./pipeline:/usr/share/logstash/pipeline:ro,Z
+    ports:
+      - 5044:5044
+      - 50000:50000/tcp
+      - 50000:50000/udp
+      - 9600:9600
+    environment:
+      LS_JAVA_OPTS: -Xms256m -Xmx256m
+      # LOGSTASH_INTERNAL_PASSWORD: "admin"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+
+networks:
+  elk:
+    driver: bridge
+
+volumes:
+  elasticsearch:

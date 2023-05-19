@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  logstash:
+    build:
+      context: ./logstash
+      args:
+        ELASTIC_VERSION: 7.11.0
+    volumes:
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro,Z
+    ports:
+      - 5044:5044
+      - 50000:50000/tcp
+      - 50000:50000/udp
+      - 9600:9600
+    environment:
+      LS_JAVA_OPTS: -Xms256m -Xmx256m
+    restart: unless-stopped

@@ -1,0 +1,9 @@
+version: "3"
+services:
+  nats:
+    image: "nats:latest"
+    volumes:
+      - ./:/etc/nats
+    command: "-c /etc/nats/nats.conf"
+    ports:
+      - "4222:4222"

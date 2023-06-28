@@ -3,12 +3,16 @@ version: "3.4"
 services:
   prereqs:
     image: grpcweb/prereqs
+    restart: "always"
   node-server:
     image: dockernhatnguyen/node-server
+    restart: "always"
   envoy:
     image: envoyproxy/envoy:v1.22-latest
+    restart: "always"
   commonjs-client:
     image: grpcweb/commonjs-client
+    restart: "always"
 
 volumes:
   grpc_data:

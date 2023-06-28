@@ -2,6 +2,7 @@ version: "3"
 services:
  sqlite:
     image: "nouchka/sqlite3:latest"
+    restart: "always"
     stdin_open: true
     tty: true
     ports:

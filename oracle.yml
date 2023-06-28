@@ -2,6 +2,7 @@ version: "3"
 services:
   oracle:
     image: "oraclelinux:8"
+    restart: "always"
     shm_size: 8g
     ports:
       - "1521:1521"

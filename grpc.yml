@@ -3,6 +3,7 @@ version: '3.4'
 services:
   grpcui:
     image: wongnai/grpcui
+    restart: "always"
     ports:
       - "8080:8080"
     

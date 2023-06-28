@@ -2,6 +2,7 @@ version: "3"
 services:
  nats:
     image: "nats:latest"
+    restart: "always"
     ports:
       - "4222:4222"
     volumes:

@@ -2,6 +2,7 @@ version: "3"
 services:
   mongo:
     image: "mongo"
+    command: --wiredTigerCacheSizeGB 0.25 --replSet s0
     restart: "always"
     ports:
       - "27017:27017"

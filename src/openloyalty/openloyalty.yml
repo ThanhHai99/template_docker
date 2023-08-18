@@ -5,7 +5,7 @@ services:
     container_name: open_loyalty_backend
     build:
       context: ../
-      dockerfile: ./docker/prod/php/fpm-dockerfile
+      dockerfile: ./openloyalty/php/fpm-dockerfile
     links:
       - db
       - elk
@@ -18,7 +18,7 @@ services:
     container_name: open_loyalty_frontend
     build:
       context: ../
-      dockerfile: ./docker/prod/web/app-dockerfile
+      dockerfile: ./openloyalty/web/app-dockerfile
     links:
       - php
     ports:

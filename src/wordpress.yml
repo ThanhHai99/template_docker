@@ -10,11 +10,11 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./../html:/var/www/html
+      - ./../data/html:/var/www/html
   mariadb:
     image: mariadb
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=wordpress
     volumes:
-      - ./../database:/var/lib/mysql
+      - ./../data/database:/var/lib/mysql

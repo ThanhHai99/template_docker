@@ -1,5 +1,2 @@
-db/
-certbot/
-database/
-html/
-wordpress/
+data/
+tmp/

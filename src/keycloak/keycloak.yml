@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0.4
+    restart: "always"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - 8080:8080
+    command:
+      - start-dev
+      - --import-realm
+
+networks:
+  keycloak:
+    driver: bridge

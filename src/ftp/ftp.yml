@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ftp:
+    image: fauria/vsftpd
+    container_name: ftp_server
+    ports:
+      - "21:21"           # FTP control port
+      - "21000-21010:21000-21010" # Passive ports range
+    environment:
+      - FTP_USER=root    # Tên người dùng FTP
+      - FTP_PASS=root # Mật khẩu cho người dùng FTP
+      - PASV_ADDRESS=0.0.0.0  # Địa chỉ IP để kết nối (có thể là IP public của bạn)
+      - PASV_MIN_PORT=21000  # Port bắt đầu cho chế độ passive
+      - PASV_MAX_PORT=21010  # Port kết thúc cho chế độ passive
+      - FILE_OPEN_MODE=0666 # Chế độ mở file
+      - LOCAL_UMASK=022     # Umask mặc định
+    volumes:
+      - ./ftpdata:/home/vsftpd # Mount thư mục host vào container
+    restart: unless-stopped

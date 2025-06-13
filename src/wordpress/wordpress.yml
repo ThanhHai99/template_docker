@@ -1,20 +1,27 @@
-version: "3.9"
 services:
   wordpress:
-    image: wordpress
-    links:
-      - mariadb:mysql
-    environment:
-      - WORDPRESS_DB_PASSWORD=password
-      - WORDPRESS_DB_USER=root
+    image: wordpress:latest
+    platform: linux/amd64
     ports:
-      - 80:80
-    volumes:
-      - ./data/html:/var/www/html
-  mariadb:
-    image: mariadb
+      - "8080:80"
     environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=wordpress
-    volumes:
-      - ./data/database:/var/lib/mysql
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: root
+
+volumes:
+  wordpress_data:
+  db_data:

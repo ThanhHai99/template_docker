@@ -1,0 +1,16 @@
+version: '3'
+services:
+  ghost:
+    image: ghost:5
+    container_name: ghost
+    restart: always
+    ports:
+      - "2368:2368"
+    environment:
+      database__client: sqlite3
+      database__connection__filename: /var/lib/ghost/content/data/ghost.db
+    volumes:
+      - ghost_data:/var/lib/ghost/content
+
+volumes:
+  ghost_data:

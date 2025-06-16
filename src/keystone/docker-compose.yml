@@ -1,0 +1,16 @@
+version: '3'
+services:
+  keystone:
+    image: node:18
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: sh -c "npm install && npx keystone dev"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"

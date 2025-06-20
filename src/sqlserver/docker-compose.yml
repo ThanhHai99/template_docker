@@ -4,13 +4,19 @@ services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver
-    ports: 
+    ports:
       - "1433:1433"
     environment:
-      ACCEPT_EULA: "Y" # Accept the End User License Agreement
-      SA_PASSWORD: "sa" # Set a strong password for the SA account
+      ACCEPT_EULA: "Y" # Đồng ý với thỏa thuận người dùng cuối
+      SA_PASSWORD: "Aa@12345"
     volumes:
       - sqlserver_data:/var/opt/mssql
+    deploy:
+      resources:
+        limits:
+          memory: 3g # Giới hạn 3 GB RAM cho container
+        reservations:
+          memory: 2g # Yêu cầu tối thiểu 2 GB RAM
     restart: always
 
 volumes:

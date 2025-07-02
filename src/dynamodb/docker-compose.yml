@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000" # Port 8000 được ánh xạ từ container sang máy tính cục bộ
+    command: [ "-jar", "DynamoDBLocal.jar", "-sharedDb" ] # Tuỳ chọn để sử dụng chung cơ sở dữ liệu
+    volumes:
+      - dynamodb-data:/home/dynamodblocal/data # Thư mục để lưu trữ dữ liệu cục bộ
+
+volumes:
+  dynamodb-data:
+    driver: local

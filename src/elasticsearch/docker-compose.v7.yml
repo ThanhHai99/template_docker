@@ -8,8 +8,10 @@ services:
     volumes:
       - "elasticsearch_data:/data"
     environment:
-      - xpack.security.enabled=false
+      - xpack.security.enabled=true
       - discovery.type=single-node
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=changeme   # đặt mật khẩu cho user "elastic"
     networks:
       - elasticsearch_net
 

@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  # ... other services like Elasticsearch, Kibana, etc.
+
+  heartbeat:
+    image: docker.elastic.co/beats/heartbeat:8.12.2 # Use the appropriate version
+    container_name: heartbeat
+    user: root # Might be required for certain monitors or permissions
+    command: heartbeat -e # Run Heartbeat in the foreground
+    volumes:
+      - ./heartbeat.yml:/usr/share/heartbeat/heartbeat.yml:ro # Mount your Heartbeat configuration
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Optional, for monitoring Docker containers
+    environment:
+      ELASTICSEARCH_HOSTS: 'elasticsearch:9200' # Connect to your Elasticsearch service
+      ELASTICSEARCH_USERNAME: 'elastic' # If X-Pack Security is enabled
+      ELASTICSEARCH_PASSWORD: 'your_elastic_password' # If X-Pack Security is enabled
+      KIBANA_HOST: 'kibana:5601' # Optional, for setting up assets
+    networks:
+      - elastic_network # Ensure Heartbeat can communicate with Elasticsearch/Kibana
+
+networks:
+  elastic_network:
+    driver: bridge
